@@ -3,10 +3,11 @@ import pyrax
 import time
 import os.path
 
-auth = pyrax.set_credential_file("/Users/migu4903/project/.passwdfile")
+auth = pyrax.set_credential_file(".rackspace_cloud_credentials")
 cloudfl = pyrax.cloudfiles
 
 container_list = cloudfl.list_containers()
+
 def get_dir_to_upload():
 	direc = str(raw_input("Enter Directory to upload: "))
 	return direc
@@ -22,7 +23,7 @@ def create_and_upload(folder,container_name):
 # Check if directory exists
 def check_if_dir_exist(dir):
 	if os.path.exists(dir) == False or os.path.isdir(dir) == False:
-		print "The %s directory does not exist or not a directory, try again..." % dir
+		print "The %s directory does not exist or is not a directory, try again..." % dir
 		return False
 	else:
 		print "Directory to upload found...Good..."
@@ -56,9 +57,7 @@ upload_mbytes = upload_kbytes / 1024
 upload_mbytes = float(upload_mbytes)
 
 print "Uploading %.2f MegaBytes" % upload_mbytes
-
 check_up_progress(up_key,upload_bytes)
-
-
+print "Upload Complete!"
 
 

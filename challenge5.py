@@ -3,7 +3,7 @@ import pyrax
 import json
 import os
 
-auth = pyrax.set_credential_file("/Users/migu4903/project/.passwdfile")
+auth = pyrax.set_credential_file(".rackspace_cloud_credentials")
 
 clouddb = pyrax.cloud_databases
 
