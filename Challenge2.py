@@ -5,11 +5,10 @@ import time
 auth = pyrax.set_credential_file("/Users/migu4903/project/.passwdfile")
 cloudserv = pyrax.cloudservers
 
-imgname  = 'challenge2'
+#imgname  = 'challenge2'
 
 def chkimgstatus(imagename,imageslist): #Check image status - return imglist.status
     imgstatus = 'UNKNOWN'
-    #imageslist = cloudserv.images.list()
     for imglist in imageslist:
         if imglist.name == imagename:
            if imglist.status == 'SAVING':
@@ -39,6 +38,7 @@ def chkimageprogress(imagename): #Prints current server image progress
 
 serverid = raw_input("Please enter server id to image and clone: ")
 clonename = raw_input("Clone Server Name: ")
+imgname = raw_input("Enter name for image storage: ")
 #serverid = '9413eff7-7f9b-43ea-9bec-b6c152f226a4'
 print "Taking image from: ", serverid
 
