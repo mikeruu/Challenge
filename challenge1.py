@@ -1,14 +1,15 @@
 import pyrax
 import utils
 import time
-auth = pyrax.set_credential_file(".rackspace_cloud_credentials")
+import os.path
+auth = pyrax.set_credential_file(os.path.expanduser("~/.rackspace_cloud_credentials"))
 cloudsrv = pyrax.cloudservers
 cloudlb = pyrax.cloud_loadbalancers
 
-print "Challenge 1: Write a script that builds three 512 MB Cloud Servers that following a similar naming convention. (ie., web1, web2, web3) and returns the IP and login credentials for each server."
+print "Challenge 1: Write a script that builds three 512 MB Cloud Servers that follow a similar naming convention. (ie., web1, web2, web3) and returns the IP and login credentials for each server."
 #create 2 servers and display their info
 serv_name = "web"
-num_servers = 2
+num_servers = 3
 imageid = "c195ef3b-9195-4474-b6f7-16e5bd86acd0"
 flavor = 2
 

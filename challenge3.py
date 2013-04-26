@@ -3,7 +3,7 @@ import pyrax
 import time
 import os.path
 
-auth = pyrax.set_credential_file(".rackspace_cloud_credentials")
+auth = pyrax.set_credential_file(os.path.expanduser("~/.rackspace_cloud_credentials"))
 cloudfl = pyrax.cloudfiles
 
 container_list = cloudfl.list_containers()
@@ -38,26 +38,27 @@ def check_up_progress(upload_key,total_bytes):
 		print percent, "% Uplodaded"
 		time.sleep(5)
 
-
-## Getting Directory to upoload from user
-directory = get_dir_to_upload()
-exists = check_if_dir_exist(directory)
-
-## Loop until user inputs an existing directory
-while exists == False:
+if __name__=="__main__":
+	## Getting Directory to upoload from user
+	print " Challenge 3: Write a script that accepts a directory as an argument as well as a container name. The script should upload the contents of the specified directory to the container (or create it if it doesn't exist). The script should handle errors appropriately. (Check for invalid paths, etc.) Worth 2 Points","\n"
 	directory = get_dir_to_upload()
 	exists = check_if_dir_exist(directory)
 
-cont_name = str(raw_input("Now Enter a Container to use (If it does not exist it will be created) : "))
+	## Loop until user inputs an existing directory
+	while exists == False:
+		directory = get_dir_to_upload()
+		exists = check_if_dir_exist(directory)
 
-up_key,upload_bytes = create_and_upload(directory,cont_name)
+	cont_name = str(raw_input("Now enter container name to use (If it does not exist it will be created) : "))
 
-upload_kbytes = float(upload_bytes) / 1024
-upload_mbytes = upload_kbytes / 1024
-upload_mbytes = float(upload_mbytes)
+	up_key,upload_bytes = create_and_upload(directory,cont_name)
 
-print "Uploading %.2f MegaBytes" % upload_mbytes
-check_up_progress(up_key,upload_bytes)
-print "Upload Complete!"
+	upload_kbytes = float(upload_bytes) / 1024
+	upload_mbytes = upload_kbytes / 1024
+	upload_mbytes = float(upload_mbytes)
+
+	print "Uploading %.2f MegaBytes" % upload_mbytes
+	check_up_progress(up_key,upload_bytes)
+	print "Upload Complete!"
 
 
